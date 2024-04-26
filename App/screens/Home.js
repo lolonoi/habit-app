@@ -10,7 +10,7 @@ import ProgressBar from "../components/UI/ProgressBar";
 import storageCRUD from "../hooks/storageCRUD";
 
 export default function Home({ navigation }) {
-  const { habitList, habitDelete } = storageCRUD();
+  const { habitList, habitDelete, habitUpdate } = storageCRUD();
   const [percentage, setPercentage] = React.useState(0);
 
   function handlePress() {
@@ -26,13 +26,22 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.habitList}>
-        {habitList.map(({ title }, index) => {
+        {habitList.map(({ title, checked }, index) => {
           function handleDelete() {
             habitDelete(index);
           }
+          function handleCheck() {
+            habitUpdate(index,{title, checked : !checked});
+          }
           return (
             <View style={styles.habitContainer}>
-              <Card key={index} title={title} handleDelete={handleDelete} />
+              <Card
+                key={index}
+                title={title}
+                checked={checked}
+                handleDelete={handleDelete}
+                handleCheck={handleCheck}
+              />
             </View>
           );
         })}

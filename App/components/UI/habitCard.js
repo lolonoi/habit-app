@@ -3,10 +3,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Card({ title, handleDelete, checked, handlechecked  }) {
+export default function Card({ title, handleDelete, checked, handleCheck  }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.checkBox} onPress={handlechecked}>
+      <TouchableOpacity style={styles.checkBox} onPress={handleCheck}>
        {checked && < Ionicons name="checkbox" size={29} color="#16A34A"></Ionicons>}
       </TouchableOpacity>
       <View>
