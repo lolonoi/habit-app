@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import Button from "../components/UI/Button";
 import ButtonBorder from "../components/UI/ButtonBorder";
@@ -12,6 +12,7 @@ import storageCRUD from "../hooks/storageCRUD";
 export default function Home({ navigation }) {
   const { habitList, habitDelete, habitUpdate } = storageCRUD();
   const [percentage, setPercentage] = React.useState(0);
+  const isHabitListEmpty = habitList.length === 0;
 
   function handlePress() {
     navigation.navigate("CreateHabit");
@@ -43,32 +44,43 @@ export default function Home({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.habitList}>
-        {habitList.map(({ title, checked }, index) => {
-          function handleDelete() {
-            habitDelete(index);
-          }
-          function handleCheck() {
-            habitUpdate(index,{title, checked : !checked});
-          }
-          return (
-            <View style={styles.habitContainer} key={index}>
-              <Card
-                key={index}
-                title={title}
-                checked={checked}
-                handleDelete={handleDelete}
-                handleCheck={handleCheck}
-              />
-            </View>
-          );
-        })}
-      </ScrollView>
+      {/* Si la liste d'habitudes est vide, afficher l'image de fond */}
+      {isHabitListEmpty && (
+        <Image
+          source={require("../../assets/calendare.png")}
+        />
+      )}
 
+      {/* Afficher la liste d'habitudes */}
+      {!isHabitListEmpty && (
+        <ScrollView style={styles.habitList}>
+          {habitList.map(({ title, checked }, index) => {
+            function handleDelete() {
+              habitDelete(index);
+            }
+            function handleCheck() {
+              habitUpdate(index, { title, checked: !checked });
+            }
+            return (
+              <View style={styles.habitContainer} key={index}>
+                <Card
+                  key={index}
+                  title={title}
+                  checked={checked}
+                  handleDelete={handleDelete}
+                  handleCheck={handleCheck}
+                />
+              </View>
+            );
+          })}
+        </ScrollView>
+      )}
+
+      {/* Le reste de votre contenu */}
       <View style={styles.absolutePositionbtn}>
         <Text style={styles.description}>Objectif quotidien</Text>
         <Button onPress={handlePressNav}>
-          {percentage.toFixed(0)}% {buttonText}{" "}
+          {percentage.toFixed(0)}% {buttonText}
         </Button>
         <ProgressBar percentage={percentage} />
       </View>
@@ -124,4 +136,5 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "500",
   },
+
 });
