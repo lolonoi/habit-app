@@ -6,7 +6,7 @@ import Button from "../components/UI/Button";
 import newHabitManage from "../hooks/newHabitManage";
 
 export default function CreateHabit({ navigation }) {
-  const { fieldsTab, handleSubmit} = newHabitManage();
+  const { fieldsTab, handleSubmit } = newHabitManage();
   function handlePress() {
     navigation.navigate("Home");
   }
@@ -16,8 +16,15 @@ export default function CreateHabit({ navigation }) {
       <Text style={styles.description}>
         Quelles est ta nouvelle résolution ?
       </Text>
-      {fieldsTab.map(({value,onChange,placeholder})=>{
-        return <Input key={placeholder} placeholder={placeholder} value ={value} onChange={onChange}></Input>
+      {fieldsTab.map(({ value, onChange, placeholder }) => {
+        return (
+          <Input
+            key={placeholder}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+          ></Input>
+        );
       })}
       <Button onPress={handleSubmit}>Ajouter</Button>
     </View>
