@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { StyleSheet, Text, View, ScrollView, Image } from "react-native";
 import Button from "../components/UI/Button";
 import ButtonBorder from "../components/UI/ButtonBorder";
@@ -16,6 +16,24 @@ export default function Home({ navigation }) {
   function handlePress() {
     navigation.navigate("CreateHabit");
   }
+  useEffect(() => {
+    // Mettre à jour le pourcentage en utilisant la fonction utilitaire
+    setPercentage(calculatePercentage(habitList));
+  }, [habitList]);
+
+  function handlePressNav(buttonType) {
+    const percentage = Math.floor(
+      (habitList.filter((habit) => habit.checked).length / habitList.length) *
+        100
+    );
+
+    if (percentage >= 100 && buttonType !== "other") {
+      navigation.navigate("Congrat");
+    } else {
+      navigation.navigate("CreateHabit");
+    }
+  }
+
   let buttonText = "HABITUDES";
   if (percentage >= 100) {
     buttonText = "Félicitations !";
@@ -34,7 +52,7 @@ export default function Home({ navigation }) {
             habitUpdate(index,{title, checked : !checked});
           }
           return (
-            <View style={styles.habitContainer}>
+            <View style={styles.habitContainer} key={index}>
               <Card
                 key={index}
                 title={title}
@@ -49,9 +67,10 @@ export default function Home({ navigation }) {
 
       <View style={styles.absolutePositionbtn}>
         <Text style={styles.description}>Objectif quotidien</Text>
-        <Button onPress={handlePress}>
+        <Button onPress={handlePressNav}>
           {percentage.toFixed(0)}% {buttonText}{" "}
         </Button>
+        <ProgressBar percentage={percentage} />
       </View>
 
       <View style={styles.absolutePosition}>
