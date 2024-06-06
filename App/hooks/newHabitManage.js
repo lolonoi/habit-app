@@ -3,7 +3,7 @@ import storageCRUD from "../hooks/storageCRUD"
 
 export default function newHabitManage() {
   const [title, titleChange] = React.useState("");
- const {habitCreate} = storageCRUD();
+ const {habitCreate, habitUpdate} = storageCRUD();
 
   const fieldsTab = [
     {
@@ -30,6 +30,24 @@ export default function newHabitManage() {
     }
 
     await habitCreate({ title: sanitizedTitle, checked: false });
+    titleChange("");
+  }
+
+  async function handleUpdate(index) {
+    const habitToUpdate = habitList[index];
+    const sanitizedTitle = sanitizeInput(habitToUpdate.title);
+  
+    if (!isValidInput(sanitizedTitle)) {
+      return alert("Veuillez saisir un nom valide pour votre habitude (1-50 caractères)");
+    }
+  
+    // Mettre à jour l'habitude avec le nouveau titre sécurisé
+    habitToUpdate.title = sanitizedTitle;
+  
+    // Mettre à jour l'habitude dans votre liste d'habitudes
+    await habitUpdate(index, habitToUpdate);
+  
+    // Réinitialiser le champ de saisie du titre
     titleChange("");
   }
 

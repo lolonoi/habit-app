@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Card({ title, handleDelete, checked, handleCheck }) {
+export default function Card({ title, handleDelete, checked, handleCheck, handleEdit }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.checkBox} onPress={handleCheck}>

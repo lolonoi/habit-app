@@ -9,12 +9,10 @@ import { calculatePercentage } from "../hooks/habitsUtils";
 import ProgressBar from "../components/UI/ProgressBar";
 import storageCRUD from "../hooks/storageCRUD";
 
-
 export default function Home({ navigation }) {
   const { habitList, habitDelete, habitUpdate } = storageCRUD();
   const [percentage, setPercentage] = React.useState(0);
   const isHabitListEmpty = habitList.length === 0;
-  
 
   function handlePress() {
     navigation.navigate("CreateHabit");
@@ -48,9 +46,7 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       {/* Si la liste d'habitudes est vide, afficher l'image de fond */}
       {isHabitListEmpty && (
-        <Image
-          source={require("../../assets/calendare.png")}
-        />
+        <Image source={require("../../assets/calendare.png")} />
       )}
 
       {/* Afficher la liste d'habitudes */}
@@ -77,7 +73,6 @@ export default function Home({ navigation }) {
           })}
         </ScrollView>
       )}
-
       {/* Le reste de votre contenu */}
       <View style={styles.absolutePositionbtn}>
         <Text style={styles.description}>Objectif quotidien</Text>
@@ -138,5 +133,4 @@ const styles = StyleSheet.create({
     width: "100%",
     fontWeight: "500",
   },
-
 });
