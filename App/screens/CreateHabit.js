@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Input from "../components/UI/Input";
 import Button from "../components/UI/Button";
@@ -26,7 +26,9 @@ export default function CreateHabit({ navigation }) {
           ></Input>
         );
       })}
-      <Button onPress={handleSubmit}>Ajouter</Button>
+      <Button onPress={handleSubmit}>
+        Ajouter
+      </Button>
     </View>
   );
 }

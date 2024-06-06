@@ -12,15 +12,26 @@ export default function newHabitManage() {
       placeholder: "Boire 2L d'eau",
     },
   ];
+  function sanitizeInput(input) {
+    // Remove potentially dangerous characters
+    return input.replace(/[^a-zA-Z0-9 ]/g, "").trim();
+  }
 
+  function isValidInput(input) {
+    // Ensure input is not empty and not excessively long
+    return input.length > 0 && input.length <= 50;
+  }
 
   async function handleSubmit() {
-    if(title.length === 0){
-        return alert('Veuillez saisir un nom pour votre habitue');
+    const sanitizedTitle = sanitizeInput(title);
+    
+    if (!isValidInput(sanitizedTitle)) {
+      return alert("Veuillez saisir un nom valide pour votre habitude (1-50 caractères)");
     }
-    await habitCreate({title, checked : false});
-    titleChange("");
 
+    await habitCreate({ title: sanitizedTitle, checked: false });
+    titleChange("");
   }
-  return {fieldsTab, handleSubmit};
+
+  return { fieldsTab, handleSubmit };
 }

@@ -9,10 +9,12 @@ import { calculatePercentage } from "../hooks/habitsUtils";
 import ProgressBar from "../components/UI/ProgressBar";
 import storageCRUD from "../hooks/storageCRUD";
 
+
 export default function Home({ navigation }) {
   const { habitList, habitDelete, habitUpdate } = storageCRUD();
   const [percentage, setPercentage] = React.useState(0);
   const isHabitListEmpty = habitList.length === 0;
+  
 
   function handlePress() {
     navigation.navigate("CreateHabit");

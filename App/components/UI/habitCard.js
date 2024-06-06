@@ -3,11 +3,13 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function Card({ title, handleDelete, checked, handleCheck  }) {
+export default function Card({ title, handleDelete, checked, handleCheck }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.checkBox} onPress={handleCheck}>
-       {checked && < Ionicons name="checkbox" size={29} color="#16A34A"></Ionicons>}
+        {checked && (
+          <Ionicons name="checkbox" size={28} color="#22C55E"></Ionicons>
+        )}
       </TouchableOpacity>
       <View>
         <Text style={styles.title}>{title}</Text>
@@ -21,19 +23,22 @@ export default function Card({ title, handleDelete, checked, handleCheck  }) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
   },
   checkBox: {
-    width: 30,
-    height: 30,
-    marginRight: 12,
+    width: 29,
+    height: 29,
     borderWidth: 1,
-    borderColor: "#27272a",
-    borderRadius: 8,
-    marginBottom: 20,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor:'black',
+    borderColor: '#27272A',
+    justifyContent: 'center',
+    borderRadius:8 ,
+    alignItems: 'center',
+    marginRight: 10,
   },
   title: { color: "white", fontSize: 14, fontWeight: "600", marginTop: 6 },
   sousTitle: { color: "#27272a", marginTop: 2, fontWeight: "600" },
